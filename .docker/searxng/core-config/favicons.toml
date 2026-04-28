@@ -1,0 +1,5 @@
+[favicons]
+cfg_schema = 1
+[favicons.cache]
+db_url = "/var/cache/searxng/faviconcache.db"
+LIMIT_TOTAL_BYTES = 536870912

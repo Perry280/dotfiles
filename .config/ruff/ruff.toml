@@ -1,0 +1,34 @@
+indent-width = 4
+line-length = 100
+
+[format]
+docstring-code-format = true
+indent-style = "space"
+line-ending = "native"
+# skip-magic-trailing-comma = true
+
+[lint]
+dummy-variable-rgx = "^_$"
+extend-select = [ "ICN", ]
+extend-select = [ "A", "ICN", ]
+# ignore = [
+#     "COM812",
+# ]
+typing-extensions = false
+
+[lint.flake8-builtins]
+strict-checking = true
+
+[lint.flake8-type-checking]
+strict = true
+
+[lint.isort]
+force-wrap-aliases = true
+combine-as-imports = true
+# split-on-trailing-comma = false
+
+[lint.pycodestyle]
+max-doc-length = 100
+
+[lint.pydocstyle]
+convention = "numpy"
