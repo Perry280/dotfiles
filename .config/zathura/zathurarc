@@ -1,0 +1,9 @@
+set default-bg "#191724"
+
+set selection-clipboard clipboard
+
+map j navigate
+map k navigate
+
+map J scroll down
+map K scroll up

@@ -1,0 +1,190 @@
+files:
+  - path: /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/keyd/default.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/makepkg.conf.d/rust.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/NetworkManager/conf.d
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/nsd/nsd.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/nsd/unbound-nsd.dns.zone
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/pacman.d/hooks
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/sddm.conf.d
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/security/limits.d
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/security/pam_env.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/sysctl.d
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/journald.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/systemd/sleep.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/systemd/system.conf.d
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/user.conf.d
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/pci-latency.service
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /usr/local/bin/pci-latency
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/unbound-roothints.service
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/systemd/system/unbound-roothints.timer
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/unbound/unbound.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/unbound/configs
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/xdg/reflector
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/bash.bashrc
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/environment
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/inputrc
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/makepkg.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/resolvconf.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/vconsole.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/hostname
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/locale.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/pacman.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/modprobe.d
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/modules-load.d
+    owner: root
+    group: root
+    mode: ''
+
+  - path: /etc/ssh/sshd_config.d/20-deny_root.conf
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/udev/rules.d
+    owner: root
+    group: root
+    mode: '644'
+
+  # - path: 
+  #   owner: root
+  #   group: root
+  #   mode: ''

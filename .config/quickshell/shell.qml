@@ -1,5 +1,8 @@
-import Quickshell // for PanelWindow
+import Quickshell
 
-Scope {
-   Bar {} 
+import "./VolumeWidget/"
+
+ShellRoot {
+    Bar {} 
+    VolumeOverlay {}
 }

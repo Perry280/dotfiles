@@ -48,10 +48,10 @@ search:
   autocomplete_min: 4
   # backend for the favicon near URL in search results.
   # Available resolvers: "allesedv", "duckduckgo", "google", "yandex" - leave blank to turn it off by default.
-  favicon_resolver: "duckduckgo"
+  favicon_resolver: ""
   # Default search language - leave blank to detect from browser information or
   # use codes from 'languages.py'
-  default_lang: "en"
+  default_lang: "auto"
   # max_page: 0  # if engine supports paging, 0 means unlimited numbers of pages
   # Available languages
   # languages:
@@ -87,7 +87,7 @@ search:
 
 server:
   # Is overwritten by ${SEARXNG_PORT} and ${SEARXNG_BIND_ADDRESS}
-  port: 8080
+  port: 8888
   bind_address: "127.0.0.1"
   # public URL of the instance, to ensure correct inbound links. Is overwritten
   # by ${SEARXNG_BASE_URL}.
@@ -102,11 +102,11 @@ server:
   # If your instance owns a /etc/searxng/settings.yml file, then set the following
   # values there.
 
-  secret_key: "UrpDeWxqS8d9yZ2C8ql3ADzEl7PraqQc"  # Is overwritten by ${SEARXNG_SECRET}
+  secret_key: "ultrasecretkey"  # Is overwritten by ${SEARXNG_SECRET}
   # Proxy image results through SearXNG. Is overwritten by ${SEARXNG_IMAGE_PROXY}
   image_proxy: false
   # 1.0 and 1.1 are supported
-  http_protocol_version: "1.1"
+  http_protocol_version: "1.0"
   # POST queries are "more secure!" but are also the source of hard-to-locate
   # annoyances, which is why GET may be better for end users and their browsers.
   # see https://github.com/searxng/searxng/pull/3619
@@ -135,14 +135,14 @@ ui:
   # ui theme
   default_theme: simple
   # center the results ?
-  center_alignment: true
+  center_alignment: false
   # URL prefix of the internet archive, don't forget trailing slash (if needed).
   # cache_url: "https://webcache.googleusercontent.com/search?q=cache:"
   # Default interface locale - leave blank to detect from browser information or
   # use codes from the 'locales' config section
-  default_locale: "en"
+  default_locale: ""
   # Open result links in a new tab by default
-  results_on_new_tab: false
+  # results_on_new_tab: false
   theme_args:
     # style of simple theme: auto, light, dark, black
     simple_style: auto
@@ -150,7 +150,7 @@ ui:
   # Disable to select multiple categories at once and start the search manually.
   search_on_category_select: true
   # Hotkeys: default or vim
-  hotkeys: vim
+  hotkeys: default
   # URL formatting: pretty, full or host
   url_formatting: pretty
 
@@ -179,7 +179,7 @@ outgoing:
   # default timeout in seconds, can be override by engine
   request_timeout: 3.0
   # the maximum timeout in seconds
-  max_request_timeout: 10.0
+  # max_request_timeout: 10.0
   # suffix of searxng_useragent, could contain information like an email address
   # to the administrator
   useragent_suffix: ""
@@ -250,7 +250,7 @@ plugins:
     active: true
 
   searx.plugins.oa_doi_rewrite.SXNGPlugin:
-    active: true
+    active: false
 
   searx.plugins.tor_check.SXNGPlugin:
     active: false
@@ -302,7 +302,7 @@ engines:
   - name: 360search
     engine: 360search
     shortcut: 360so
-    timeout: 10.0
+    timeout: 20.0
     disabled: true
 
   - name: 360search videos
@@ -369,14 +369,14 @@ engines:
       - https://annas-archive.vg
       - https://annas-archive.pk
       - https://annas-archive.gd
-    # disabled: true
+    disabled: true
     shortcut: aa
     timeout: 5
 
   - name: ansa
     engine: ansa
     shortcut: ans
-    disabled: false
+    disabled: true
 
   # - name: annas articles
   #   engine: annas_archive
@@ -458,7 +458,6 @@ engines:
     engine: artic
     shortcut: arc
     timeout: 4.0
-    disabled: true
 
   - name: artstation
     engine: artstation
@@ -535,17 +534,14 @@ engines:
   - name: bing images
     engine: bing_images
     shortcut: bii
-    disabled: true
 
   - name: bing news
     engine: bing_news
     shortcut: bin
-    disabled: true
 
   - name: bing videos
     engine: bing_videos
     shortcut: biv
-    disabled: true
 
   - name: bitchute
     engine: bitchute
@@ -590,7 +586,6 @@ engines:
     engine: openverse
     categories: images
     shortcut: opv
-    disabled: true
 
   - name: media.ccc.de
     engine: ccc_media
@@ -603,14 +598,13 @@ engines:
   - name: cachy os packages
     engine: cachy_os
     shortcut: cos
-    disabled: false
+    disabled: true
 
   - name: chefkoch
     engine: chefkoch
     shortcut: chef
     # to show premium or plus results too:
     # skip_premium: false
-    disabled: true
 
   # WARNING: links from chinaso.com voilate users privacy
   # Before activate these engines its mandatory to read
@@ -694,28 +688,11 @@ engines:
     engine: yep
     shortcut: yep
     categories: general
-    search_type: web
-    timeout: 15
-    disabled: true
-
-  - name: yep images
-    engine: yep
-    shortcut: yepi
-    categories: images
-    search_type: images
-    disabled: true
-
-  - name: yep news
-    engine: yep
-    shortcut: yepn
-    categories: news
-    search_type: news
     disabled: true
 
   - name: currency
     engine: currency_convert
     shortcut: cc
-    disabled: true
 
   - name: deezer
     engine: deezer
@@ -736,7 +713,6 @@ engines:
     engine: devicons
     shortcut: di
     timeout: 3.0
-    disabled: true
 
   - name: ddg definitions
     engine: duckduckgo_definitions
@@ -843,7 +819,7 @@ engines:
   - name: duckduckgo weather
     engine: duckduckgo_weather
     shortcut: ddw
-    # disabled: true
+    disabled: true
 
   - name: apple maps
     engine: apple_maps
@@ -908,7 +884,6 @@ engines:
     categories: images
     shortcut: fl
     engine: flickr_noapi
-    disabled: true
 
   - name: flickr_api
     # You can use the engine using the official stable API, but you need an API
@@ -926,7 +901,7 @@ engines:
     base_url: https://directory.fsf.org/
     search_type: title
     timeout: 5.0
-    # disabled: true
+    disabled: true
     about:
       website: https://directory.fsf.org/
       wikidata_id: Q2470288
@@ -997,7 +972,7 @@ engines:
     engine: gitlab
     base_url: https://gitlab.com
     shortcut: gl
-    # disabled: true
+    disabled: true
     about:
       website: https://gitlab.com/
       wikidata_id: Q16639197
@@ -1037,7 +1012,7 @@ engines:
     engine: gitea
     base_url: https://codeberg.org
     shortcut: cb
-    disabled: false
+    disabled: true
 
   - name: gitea.com
     engine: gitea
@@ -1045,16 +1020,20 @@ engines:
     shortcut: gitea
     disabled: true
 
+  - name: gmx
+    engine: gmx
+    shortcut: gmx
+    disabled: true
+
   - name: goodreads
     engine: goodreads
     shortcut: good
     timeout: 4.0
-    # disabled: true
+    disabled: true
 
   - name: google
     engine: google
     shortcut: go
-    weight: 2
 
   - name: google images
     engine: google_images
@@ -1153,7 +1132,6 @@ engines:
       use_official_api: false
       require_api_key: false
       results: JSON
-    disabled: true
 
   - name: il post
     engine: il_post
@@ -1225,7 +1203,6 @@ engines:
     categories: [general, web]
     search_type: web
     shortcut: ka
-    disabled: true
 
   - name: karmasearch images
     engine: karmasearch
@@ -1233,21 +1210,18 @@ engines:
     search_type: images
     shortcut: kai
     paging: false
-    disabled: true
 
   - name: karmasearch videos
     engine: karmasearch
-    categories: [general, web]
+    categories: [videos, web]
     search_type: videos
     shortcut: kav
-    disabled: true
 
   - name: karmasearch news
     engine: karmasearch
     categories: [news, web]
     search_type: news
     shortcut: kan
-    disabled: true
 
   - name: kickass
     engine: kickass
@@ -1259,7 +1233,6 @@ engines:
       - https://kat.am
     shortcut: kc
     timeout: 4.0
-    disabled: true
 
   - name: lemmy communities
     engine: lemmy
@@ -1329,9 +1302,9 @@ engines:
   - name: lingva
     engine: lingva
     shortcut: lv
+    timeout: 6.0
     # set lingva instance in url, by default it will use the official instance
-    # url: https://lingva.thedaviddelta.com
-    disabled: true
+    # url: https://lingva.ml
 
   - name: lobste.rs
     engine: xpath
@@ -1356,7 +1329,6 @@ engines:
     engine: lucide
     shortcut: luc
     timeout: 3.0
-    disabled: true
 
   - name: marginalia
     engine: marginalia
@@ -1567,7 +1539,7 @@ engines:
   - name: openmeteo
     engine: open_meteo
     shortcut: om
-    # disabled: true
+    disabled: true
 
   # - name: opensemanticsearch
   #   engine: opensemantic
@@ -1587,7 +1559,7 @@ engines:
     content_xpath: //li[@class="search-result"]//div[@class="search-snippet-info"]//p[@class="search-snippet"]
     categories: files
     timeout: 4.0
-    # disabled: true
+    disabled: true
     shortcut: or
     about:
       website: https://openrepos.net/
@@ -1666,7 +1638,6 @@ engines:
     # country
     url: https://thepiratebay.org/
     timeout: 3.0
-    disabled: true
 
   - name: pixabay images
     engine: pixabay
@@ -1711,7 +1682,6 @@ engines:
   - name: podcastindex
     engine: podcastindex
     shortcut: podcast
-    disabled: true
 
   # Required dependency: psychopg2
   #  - name: postgresql
@@ -1810,7 +1780,7 @@ engines:
     engine: qwant
     shortcut: qw
     categories: [general, web]
-    # disabled: true
+    disabled: true
 
   - name: qwant news
     qwant_categ: news
@@ -1818,7 +1788,6 @@ engines:
     shortcut: qwn
     categories: news
     network: qwant
-    disabled: true
 
   - name: qwant images
     qwant_categ: images
@@ -1826,7 +1795,6 @@ engines:
     shortcut: qwi
     categories: [images, web]
     network: qwant
-    disabled: true
 
   - name: qwant videos
     qwant_categ: videos
@@ -1834,7 +1802,6 @@ engines:
     shortcut: qwv
     categories: [videos, web]
     network: qwant
-    disabled: true
 
   # - name: library
   #   engine: recoll
@@ -1861,13 +1828,12 @@ engines:
   - name: radio browser
     engine: radio_browser
     shortcut: rb
-    disabled: true
 
   - name: reddit
     engine: reddit
     shortcut: re
     page_size: 25
-    # disabled: true
+    disabled: true
 
   - name: reuters
     engine: reuters
@@ -1919,7 +1885,6 @@ engines:
   - name: sepiasearch
     engine: sepiasearch
     shortcut: sep
-    disabled: true
 
   - name: sogou
     engine: sogou
@@ -2043,7 +2008,7 @@ engines:
   - name: steam
     engine: steam
     shortcut: stm
-    # disabled: true
+    disabled: true
 
   - name: tokyotoshokan
     engine: tokyotoshokan
@@ -2058,7 +2023,6 @@ engines:
     base_url:
       - https://solidtorrents.to
       - https://bitsearch.to
-    disabled: true
 
   # For this demo of the sqlite engine download:
   #   https://liste.mediathekview.de/filmliste-v2.db.bz2
@@ -2185,7 +2149,6 @@ engines:
   - name: yahoo news
     engine: yahoo_news
     shortcut: yhn
-    disabled: true
 
   - name: youtube
     shortcut: yt
@@ -2202,12 +2165,10 @@ engines:
   - name: dailymotion
     engine: dailymotion
     shortcut: dm
-    disabled: true
 
   - name: vimeo
     engine: vimeo
     shortcut: vm
-    disabled: true
 
   - name: wiby
     engine: json_engine
@@ -2358,7 +2319,6 @@ engines:
   - name: dictzone
     engine: dictzone
     shortcut: dc
-    disabled: true
 
   - name: mymemory translated
     engine: translated
@@ -2367,7 +2327,6 @@ engines:
     # You can use without an API key, but you are limited to 1000 words/day
     # See: https://mymemory.translated.net/doc/usagelimits.php
     # api_key: ''
-    disabled: true
 
   # Required dependency: mysql-connector-python
   #  - name: mysql
@@ -2622,7 +2581,6 @@ engines:
     engine: wttr
     shortcut: wttr
     timeout: 9.0
-    disabled: true
 
   - name: braveapi
     engine: braveapi
@@ -2685,7 +2643,6 @@ engines:
   - name: bt4g
     engine: bt4g
     shortcut: bt4g
-    disabled: true
 
   - name: pkg.go.dev
     engine: pkg_go_dev

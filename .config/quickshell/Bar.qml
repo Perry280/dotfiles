@@ -1,36 +1,82 @@
+import QtQuick
+import QtQuick.Layouts
 import Quickshell // for PanelWindow
-import QtQuick // for Text
+import Quickshell.Wayland 
+
+import "./ClockWidget"
+
+import "./VolumeWidget"
+import "./SessionWidget"
+import "./NetworkWidget"
+import "./MediaPlayer"
+
+import "./Workspaces"
+import "./SystemInfo"
 
 Scope {
+
     Variants {
         model: Quickshell.screens
 
-        delegate: Component {
-            PanelWindow {
-                required property var modelData
-                screen: modelData
+        PanelWindow {
+            id: bar
+            required property var modelData
+            property color bgWidget: RosePine.overlay
+            screen: modelData
 
-                anchors {
-                    top: true
-                    left: true
-                    right: true
-                }
+            implicitHeight: 34
+            anchors {
+                top: true
+                left: true
+                right: true
+            }
 
-                // margins {
-                //     top: 10
-                //     left: 10
-                //     right: 10
-                // }
+            surfaceFormat.opaque: true
 
-                color: Qt.alpha(Nordic.black0, 0.9)
-                implicitHeight: 30
+            color: "transparent"
 
-                surfaceFormat {
-                    opaque: false
+            Rectangle {
+                id: root
+
+                anchors.fill: parent
+
+                color: RosePine.base
+
+
+                RowLayout {
+                    anchors {
+                        left: parent.left
+                        verticalCenter: parent.verticalCenter
+                        leftMargin: 2
+                    }
+
+                    SystemInfoWidget {}
+
+                    WorkspaceWidget {}
                 }
 
                 ClockWidget {
                     anchors.centerIn: parent
+                }
+
+                RowLayout {
+                    anchors {
+                        right: parent.right
+                        verticalCenter: parent.verticalCenter
+                        rightMargin: 2
+                    }
+
+                    MediaPlayerWidget {}
+
+                    NetworkWidget {}
+
+                    VolumeWidget {}
+
+                    SessionWidget {
+                        bar: bar
+                        bgPopup: root.color
+                        bgMenu: bgWidget
+                    }
                 }
             }
         }

@@ -48,4 +48,4 @@ QtObject {
     property color magenta_base: "#B48EAD"
     property color magenta_bright: "#BE9DB8"
     property color magenta_dim: "#A97EA1"
- }
+}

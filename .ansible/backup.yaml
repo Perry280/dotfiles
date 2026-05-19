@@ -1,0 +1,15 @@
+- name: Main Arch
+  hosts: desktop
+  become: true
+  vars_files:
+    - files_to_backup.yaml
+
+  tasks:
+  - name: Backup
+    ansible.builtin.copy:
+      src: "{{ item.path }}"
+      dest: "files/{{ item.path }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
+      mode: "{{ item.mode }}"
+    loop: "{{ files }}"
