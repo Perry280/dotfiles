@@ -3,15 +3,15 @@ import QtQuick.Layouts
 import Quickshell // for PanelWindow
 import Quickshell.Wayland 
 
+import "./SystemInfo"
+import "./Workspaces"
+
 import "./ClockWidget"
 
-import "./VolumeWidget"
-import "./SessionWidget"
-import "./NetworkWidget"
 import "./MediaPlayer"
-
-import "./Workspaces"
-import "./SystemInfo"
+import "./NetworkWidget"
+import "./VolumeWidget"
+import "./SidePanel"
 
 Scope {
 
@@ -21,7 +21,6 @@ Scope {
         PanelWindow {
             id: bar
             required property var modelData
-            property color bgWidget: RosePine.overlay
             screen: modelData
 
             implicitHeight: 34
@@ -59,23 +58,49 @@ Scope {
                     anchors.centerIn: parent
                 }
 
-                RowLayout {
+                RowLayout{
                     anchors {
                         right: parent.right
                         verticalCenter: parent.verticalCenter
-                        rightMargin: 2
+                        rightMargin: 20
                     }
 
-                    MediaPlayerWidget {}
+                    MediaPlayerWidget {
+                        Layout.alignment: Qt.AlignCenter
+                        id: mp
+                    }
 
-                    NetworkWidget {}
+                    Rectangle {
+                        Layout.alignment: Qt.AlignCenter
 
-                    VolumeWidget {}
+                        implicitHeight: 24
+                        implicitWidth: nw.width + vol.width + session.width
+                        radius: 5
+                        color: RosePine.overlay
 
-                    SessionWidget {
-                        bar: bar
-                        bgPopup: root.color
-                        bgMenu: bgWidget
+                        RowLayout {
+                            id: rightElements
+                            anchors {
+                                centerIn: parent
+                                fill: parent
+                            }
+
+                            NetworkWidget {
+                                Layout.leftMargin: 5
+                                Layout.alignment: Qt.AlignCenter
+                                id: nw
+                            }
+
+                            VolumeWidget {
+                                Layout.alignment: Qt.AlignCenter
+                                id: vol
+                            }
+
+                            SidePanelWidget {
+                                Layout.alignment: Qt.AlignCenter
+                                id: session
+                            }
+                        }
                     }
                 }
             }

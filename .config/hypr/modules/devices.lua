@@ -19,7 +19,7 @@ hl.config({
         repeat_rate = 30,
         repeat_delay = 250,
 
-        follow_mouse = 1,
+        follow_mouse = 1, -- 2
         accel_profile = "flat",
         sensitivity = 0,
     }

@@ -10,66 +10,41 @@ Rectangle {
     antialiasing: true
     color: RosePine.overlay
     height: 24
-    width: 210
+    width: 70
     radius: 5
 
-    RowLayout {
+    Item {
         anchors {
             fill: parent
             centerIn: parent
         }
-        // spacing: 0
 
-        Item {
-            Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-            Layout.preferredHeight: time_root.height
-            Layout.preferredWidth: time_text.width
-            Layout.leftMargin: 10
-            Layout.rightMargin: 1
+        Text {
+            id: time_text
+            anchors.centerIn: parent
+            color: fg
 
-            Text {
-                id: time_text
-                anchors.centerIn: parent
-                color: fg
+            text: Time.time
 
-                text: Time.time
-
-                font {
-                    family: "JetBrainsMonoNL Nerd Font Propo"
-                    pixelSize: 15
-                    // bold: true
-                    // hintingPreference: Font.PreferVerticalHinting
-                }
-
-                renderType: Text.QtRendering
+            font {
+                family: "JetBrainsMonoNL Nerd Font Propo"
+                pixelSize: 15
             }
+
+            renderType: Text.QtRendering
         }
+    }
 
-        Separator {
-            Layout.alignment: Qt.AlignCenter
+    MouseArea {
+        id: triggerArea
+        anchors.fill: parent
+        onClicked: {
+            calendar.active = !calendar.active
         }
+    }
 
-        Item {
-            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-            Layout.preferredHeight: time_root.height
-            Layout.preferredWidth: date_text.width
-            Layout.rightMargin: 10
-            Text {
-                id: date_text
-                anchors.centerIn: parent
-                color: fg
-
-                text: Time.date
-
-                font {
-                    family: "JetBrainsMonoNL Nerd Font Propo"
-                    pixelSize: 15
-                    // bold: true
-                    // hintingPreference: Font.PreferVerticalHinting
-                }
-
-                renderType: Text.QtRendering
-            }
-        }
+    CalendarWidget {
+        id: calendar
+        active: false
     }
 }

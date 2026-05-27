@@ -1,7 +1,7 @@
 ---@type table<string, string>
 local M = {
     terminal = "kitty",
-    fileManager = "nautilus",
+    fileManager = "dolphin",
     menu = "hyprlauncher",
     browser = "/home/alex/.local/bin/firefox_searxng.sh",
 }

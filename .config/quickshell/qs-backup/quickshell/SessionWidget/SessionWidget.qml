@@ -16,7 +16,7 @@ Rectangle {
 
     height: 24
     width: 24
-    color: RosePine.rose
+    color: RosePine.gold
 
     radius: 5
 

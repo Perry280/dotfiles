@@ -10,12 +10,12 @@ import ".."
 
 Rectangle {
     id: mp
-    visible: MediaPlayer.anyPlayers
     implicitHeight: 24
     implicitWidth: items.spacing * 5 + iconItem.width + artistItem.width + separator.width + trackItem.width
     radius: 5
 
     color: RosePine.leaf
+    visible: MediaPlayer.anyPlayers
 
     function truncate_string(str) {
         var max_len = 25
@@ -49,7 +49,7 @@ Rectangle {
                 Behavior on opacity {
                     NumberAnimation {
                         duration: 150
-                        easing.type: Easing.OutCirc
+                        easing.type: Easing.Linear
                     }
                 }
 
@@ -69,7 +69,7 @@ Rectangle {
                 Behavior on opacity {
                     NumberAnimation {
                         duration: 150
-                        easing.type: Easing.OutCirc
+                        easing.type: Easing.Linear
                     }
                 }
 

@@ -7,7 +7,7 @@
   tasks:
   - name: Restore
     ansible.builtin.copy:
-      src: "files/{{ item.path }}"
+      src: "files/root/{{ item.path }}"
       dest: "{{ item.path }}"
       owner: "{{ item.owner }}"
       group: "{{ item.group }}"

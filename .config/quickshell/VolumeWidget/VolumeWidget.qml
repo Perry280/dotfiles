@@ -7,12 +7,12 @@ import ".."
 
 Rectangle { 
     id: vol
-    readonly property color fgVolumeWidget: RosePine.overlay
+    readonly property color fgVolumeWidget: RosePine.foam
 
 
-    height: 24
-    width: vol_main.width + 20
-    color: RosePine.foam
+    implicitHeight: 20
+    implicitWidth: vol_main.width + 20
+    color: RosePine.overlay
 
     radius: 5
     antialiasing: true
@@ -20,97 +20,64 @@ Rectangle {
     RowLayout { 
         id: vol_main
         anchors.centerIn: parent
-        spacing: 10
+        spacing: 3
 
         VolumeIcon {
             Layout.preferredHeight: 24
             Layout.preferredWidth: 20
 
             fg: fgVolumeWidget
-            Layout.alignment: Qt.AlignVCenter
+            Layout.alignment: Qt.AlignCenter
         }
         VolumeText {
             Layout.preferredHeight: 24
             Layout.preferredWidth: 20
-            Layout.rightMargin: 5
+            // Layout.rightMargin: 5
 
             fg: fgVolumeWidget
-            Layout.alignment: Qt.AlignVCenter
+            Layout.alignment: Qt.AlignCenter
         }
     }
 
-    // state: "NORMAL"
+    state: "NORMAL"
 
-    // states: [
-    //     State {
-    //         name: "NORMAL"
-    //         PropertyChanges { target: vol; color: bg }
-    //     },
-    //     State {
-    //         name: "HOVERED"
-    //         PropertyChanges { target: vol; color: RosePine.highlight_med }
-    //     },
-    //     State {
-    //         name: "CLICKED"
-    //         PropertyChanges { target: vol; color: RosePine.highlight_high }
-    //     },
-    // ]
+    states: [
+        State {
+            name: "NORMAL"
+            PropertyChanges { target: vol; color: RosePine.overlay }
+        },
+        State {
+            name: "HOVERED"
+            PropertyChanges { target: vol; color: RosePine.highlight_med }
+        },
+        State {
+            name: "CLICKED"
+            PropertyChanges { target: vol; color: RosePine.highlight_high }
+        },
+    ]
 
-    // states: [
-    //     State {
-    //         name: "NORMAL"
-    //         PropertyChanges {
-    //             target: vol
-    //             border {
-    //                 color: RosePine.overlay
-    //                 width: 0
-    //             }
-    //         }
-    //     },
-    //     State {
-    //         name: "HOVERED"
-    //         PropertyChanges {
-    //             target: vol
-    //             border {
-    //                 color: RosePine.overlay
-    //                 width: 1
-    //             }
-    //         }
-    //     },
-    //     State {
-    //         name: "CLICKED"
-    //         PropertyChanges {
-    //             target: vol
-    //             border {
-    //                 color: RosePine.overlay
-    //                 width: 2
-    //             }
-    //         }
-    //     },
-    // ]
-
-    // transitions: [
-    //     Transition {
-    //         from: "NORMAL"
-    //         to: "HOVERED"
-    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
-    //     },
-    //     Transition {
-    //         from: "HOVERED"
-    //         to: "NORMAL"
-    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
-    //     },
-    //     Transition {
-    //         from: "HOVERED"
-    //         to: "CLICKED"
-    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
-    //     },
-    //     Transition {
-    //         from: "CLICKED"
-    //         to: "HOVERED"
-    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
-    //     }
-    // ]
+    transitions: [
+        Transition {
+            from: "NORMAL"
+            to: "HOVERED"
+            ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
+        },
+        Transition {
+            from: "HOVERED"
+            to: "NORMAL"
+            ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
+        },
+        Transition {
+            from: "HOVERED"
+            to: "CLICKED"
+            ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
+        },
+        Transition {
+            from: "CLICKED"
+            to: "HOVERED"
+            ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
+        }
+    ]
 
     MouseArea {
         anchors.fill: parent

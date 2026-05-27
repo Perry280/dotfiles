@@ -32,18 +32,9 @@ function M.setup(variables)
         dsp.exec_cmd('hyprshutdown -t "Shutting down..." --post-cmd "systemctl poweroff"')
     )
     bind('SUPER + ALT + CTRL + SHIFT + R', dsp.exec_cmd('hyprshutdown -t "Rebooting..." --post-cmd "systemctl reboot"'))
-    bind('SUPER + ALT + CTRL + SHIFT + P', dsp.exec_cmd('hyprshutdown -t "Suspending..." --post-cmd "systemctl suspend"'))
+    bind('SUPER + ALT + CTRL + SHIFT + P', dsp.exec_cmd('systemctl suspend'))
     bind('SUPER + ALT + CTRL + SHIFT + O', dsp.exec_cmd('hyprshutdown')) -- Logout
     bind('SUPER + ALT + CTRL + SHIFT + L', dsp.exec_cmd('hyprlock'))     -- Lock
-    -- bind('SUPER + SHIFT + X', dsp.submap('session'))
-    -- hl.define_submap('session', function()
-    --     bind('S', dsp.exec_cmd('hyprshutdown -t "Shutting down..." --post-cmd "systemctl poweroff"'))
-    --     bind('R', dsp.exec_cmd('hyprshutdown -t "Rebooting..." --post-cmd "systemctl reboot"'))
-    --     bind('P', dsp.exec_cmd('hyprshutdown -t "Suspending..." --post-cmd "systemctl suspend"'))
-    --     bind('O', dsp.exec_cmd('hyprshutdown')) -- Logout
-    --     bind('L', dsp.exec_cmd('hyprlock'))     -- Lock
-    --     bind('escape', dsp.submap('reset'))
-    -- end)
 
     -- Move focus with mainMod + {h, j, k, l}
     bind('SUPER + h', dsp.focus({ direction = 'left' }))
@@ -62,42 +53,56 @@ function M.setup(variables)
     bind('SUPER + SHIFT + l', dsp.focus({ workspace = '+1' }))
     bind('SUPER + SHIFT + h', dsp.focus({ workspace = '-1' }))
 
-    -- bind(
-    --     'SUPER + SHIFT + ALT + h',
-    --     dsp.window.resize({
-    --         x = hl.get_window("activewindow").size.x - 20,
-    --         y = hl.get_window("activewindow").size.y,
-    --     }),
-    --     { repeating = true }
-    -- )
-    -- bind(
-    --     'SUPER + SHIFT + ALT + l',
-    --     dsp.window.resize({
-    --         x = hl.get_window("activewindow").size.x + 20,
-    --         y = hl.get_window("activewindow").size.y,
-    --     }),
-    --     { repeating = true }
-    -- )
-    -- bind(
-    --     'SUPER + SHIFT + ALT + k',
-    --     dsp.window.resize({
-    --         x = hl.get_window("activewindow").size.x,
-    --         y = hl.get_window("activewindow").size.y + 20,
-    --     }),
-    --     { repeating = true }
-    -- )
-    -- bind(
-    --     'SUPER + SHIFT + ALT + j',
-    --     dsp.window.resize({
-    --         x = hl.get_window("activewindow").size.x,
-    --         y = hl.get_window("activewindow").size.y - 20,
-    --     }),
-    --     { repeating = true }
-    -- )
+    ---@type integer
+    local resize_unit = 50
+    bind(
+        'SUPER + SHIFT + ALT + h',
+        dsp.window.resize({ x = -resize_unit, y = 0, relative = true, }),
+        { repeating = true }
+    )
+    bind(
+        'SUPER + SHIFT + ALT + l',
+        dsp.window.resize({ x = resize_unit, y = 0, relative = true, }),
+        { repeating = true }
+    )
+    bind(
+        'SUPER + SHIFT + ALT + k',
+        dsp.window.resize({ x = 0, y = resize_unit, relative = true, }),
+        { repeating = true }
+    )
+    bind(
+        'SUPER + SHIFT + ALT + j',
+        dsp.window.resize({ x = 0, y = -resize_unit, relative = true, }),
+        { repeating = true }
+    )
+
+    bind(
+        'SUPER + CTRL + ALT + h',
+        dsp.window.move({ x = -resize_unit, y = 0, relative = true, }),
+        { repeating = true }
+    )
+    bind(
+        'SUPER + CTRL + ALT + l',
+        dsp.window.move({ x = resize_unit, y = 0, relative = true, }),
+        { repeating = true }
+    )
+    bind(
+        'SUPER + CTRL + ALT + j',
+        dsp.window.move({ x = 0, y = resize_unit, relative = true, }),
+        { repeating = true }
+    )
+    bind(
+        'SUPER + CTRL + ALT + k',
+        dsp.window.move({ x = 0, y = -resize_unit, relative = true, }),
+        { repeating = true }
+    )
 
     -- bind('SUPER + Q', function()
-    --     hl.notification.create({ text = tostring(hl.get_window("activewindow").size.x) ..
-    --     " " .. tostring(hl.get_window("activewindow").size.y), duration = 2000 })
+    --     hl.notification.create({
+    --         text = tostring(hl.get_window("activewindow").size.x) ..
+    --             " " .. tostring(hl.get_window("activewindow").size.y),
+    --         duration = 2000
+    --     })
     -- end)
 
     -- Switch workspaces with mainMod + [0-9]

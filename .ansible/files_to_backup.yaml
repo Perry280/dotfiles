@@ -172,7 +172,7 @@ files:
   - path: /etc/modules-load.d
     owner: root
     group: root
-    mode: ''
+    mode: '755'
 
   - path: /etc/ssh/sshd_config.d/20-deny_root.conf
     owner: root
@@ -182,7 +182,47 @@ files:
   - path: /etc/udev/rules.d
     owner: root
     group: root
-    mode: '644'
+    mode: '755'
+
+  - path: /etc/systemd/system/getty@.service.d/
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/getty@tty1.service.d/
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/keyd.service.d/
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/paccache.service.d/
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/paccache.timer.d/
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/snapper-cleanup.timer.d/
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/systemd/system/snapper-timeline.timer.d/
+    owner: root
+    group: root
+    mode: '755'
+
+  - path: /etc/bees/
+    owner: root
+    group: root
+    mode: '755'
 
   # - path: 
   #   owner: root

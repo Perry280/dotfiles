@@ -5,11 +5,40 @@
     - files_to_backup.yaml
 
   tasks:
+  - name: Create directories
+    ansible.builtin.file:
+      path: "files/root{{ item.path | dirname }}"
+      mode: "755"
+      state: directory
+    loop: "{{ files }}"
+
   - name: Backup
     ansible.builtin.copy:
       src: "{{ item.path }}"
-      dest: "files/{{ item.path }}"
+      dest: "files/root{{ item.path }}"
       owner: "{{ item.owner }}"
       group: "{{ item.group }}"
       mode: "{{ item.mode }}"
     loop: "{{ files }}"
+
+  - name: Get pacman packages
+    ansible.builtin.command: pacman -Qqe
+    register: pacman_packages
+    changed_when: false
+
+  - name: Write packages to file
+    ansible.builtin.copy:
+      content: "{{ pacman_packages.stdout }}"
+      dest: "files/pkgs.txt"
+      mode: "644"
+
+  - name: Get systemd enabled units
+    ansible.builtin.command: systemctl list-unit-files --state=enabled
+    register: systemd_units
+    changed_when: false
+
+  - name: Write units to file
+    ansible.builtin.copy:
+      content: "{{ systemd_units.stdout }}"
+      dest: "files/systemd.txt"
+      mode: "644"

@@ -11,22 +11,22 @@ import ".."
 Rectangle { 
     id: net
 
-    implicitHeight: 20
-    implicitWidth: 20
-    color: RosePine.overlay
+    height: 24
+    width: 24
+    color: RosePine.iris
 
     radius: 5
 
     IconImage {
         anchors.centerIn: parent
 
-        implicitSize: 22
+        implicitSize: 24
         source: Quickshell.iconPath(get_icon())
 
         layer.enabled: true
         layer.effect: MultiEffect {
             colorization: 1.0
-            colorizationColor: RosePine.iris
+            colorizationColor: RosePine.overlay
         }
 
         function get_connected_network(networks) {
@@ -88,60 +88,60 @@ Rectangle {
         }
     }
 
-    state: "NORMAL"
+    // state: "NORMAL"
 
-    states: [
-        State {
-            name: "NORMAL"
-            PropertyChanges { target: net; color: RosePine.overlay }
-        },
-        State {
-            name: "HOVERED"
-            PropertyChanges { target: net; color: RosePine.highlight_med }
-        },
-        State {
-            name: "CLICKED"
-            PropertyChanges { target: net; color: RosePine.highlight_high }
-        },
-    ]
+    // states: [
+    //     State {
+    //         name: "NORMAL"
+    //         PropertyChanges { target: net; color: bg }
+    //     },
+    //     State {
+    //         name: "HOVERED"
+    //         PropertyChanges { target: net; color: Nordic.gray1 }
+    //     },
+    //     State {
+    //         name: "CLICKED"
+    //         PropertyChanges { target: net; color: Nordic.gray2 }
+    //     },
+    // ]
 
-    transitions: [
-        Transition {
-            from: "NORMAL"
-            to: "HOVERED"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
-        },
-        Transition {
-            from: "HOVERED"
-            to: "NORMAL"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
-        },
-        Transition {
-            from: "HOVERED"
-            to: "CLICKED"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
-        },
-        Transition {
-            from: "CLICKED"
-            to: "HOVERED"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
-        }
-    ]
+    // transitions: [
+    //     Transition {
+    //         from: "NORMAL"
+    //         to: "HOVERED"
+    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
+    //     },
+    //     Transition {
+    //         from: "HOVERED"
+    //         to: "NORMAL"
+    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
+    //     },
+    //     Transition {
+    //         from: "HOVERED"
+    //         to: "CLICKED"
+    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
+    //     },
+    //     Transition {
+    //         from: "CLICKED"
+    //         to: "HOVERED"
+    //         ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
+    //     }
+    // ]
 
     MouseArea {
         anchors.fill: parent
-        hoverEnabled: true
-        onEntered: {
-            parent.state = "HOVERED"
-        }
-        onExited: {
-            parent.state = "NORMAL"
-        }
-        onPressed: {
-            parent.state = "CLICKED"
-        }
+        // hoverEnabled: true
+        // onEntered: {
+        //     parent.state = "HOVERED"
+        // }
+        // onExited: {
+        //     parent.state = "NORMAL"
+        // }
+        // onPressed: {
+        //     parent.state = "CLICKED"
+        // }
         onReleased: {
-            parent.state = containsMouse ? "HOVERED" : "NORMAL"
+            // parent.state = containsMouse ? "HOVERED" : "NORMAL"
             Quickshell.execDetached(["nm-connection-editor"])
         }
     }

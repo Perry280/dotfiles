@@ -10,7 +10,7 @@ Item {
     IconImage {
         anchors.centerIn: parent
 
-        implicitSize: 18
+        implicitSize: 20
         source: Quickshell.iconPath(Volume.get_icon())
 
         layer.enabled: true
