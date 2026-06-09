@@ -1,0 +1,393 @@
+##############################################
+#                                            #
+#        dnscrypt-proxy configuration        #
+#                                            #
+##############################################
+
+## This is an example configuration file.
+## You should adjust it to your needs, and save it as "dnscrypt-proxy.toml"
+##
+## Online documentation is available here: https://dnscrypt.info/doc
+
+
+###############################################################################
+#                             Global settings                                 #
+###############################################################################
+
+# server_names = ['scaleway-fr', 'google', 'yandex', 'cloudflare']
+# server_names = ['quad9-dnscrypt-ip4-filter-pri',  'ibksturm']
+server_names = ['adguard-dns', 'adguard-dns-doh', 'controld-block-malware-ad', 'mullvad-base-doh']
+listen_addresses = ['127.0.0.1:54', '[::1]:54']
+max_clients = 250
+
+###############################################################################
+#                            Server Selection                                 #
+###############################################################################
+
+ipv4_servers = true
+ipv6_servers = false
+dnscrypt_servers = true
+doh_servers = false
+odoh_servers = false
+require_dnssec = true
+require_nolog = true
+require_nofilter = true
+
+disabled_server_names = []
+
+###############################################################################
+#                           Connection Settings                               #
+###############################################################################
+
+force_tcp = false
+http3 = false
+http3_probe = false
+
+timeout = 5000
+keepalive = 30
+
+
+###############################################################################
+#                        Load Balancing & Performance                         #
+###############################################################################
+
+## Load-balancing strategy: 'wp2' (default), 'p2', 'ph', 'p<n>', 'first', or 'random'
+## 'wp2' (default): Weighted Power of Two - selects the better performing server
+## from two random candidates based on real-time RTT and success rates.
+## 'p2': Randomly choose 1 of the fastest 2 servers by latency.
+## 'ph': Randomly choose from fastest half of servers.
+## 'p<n>': Randomly choose from fastest n servers (e.g., 'p3' for fastest 3).
+## 'first': Always use the fastest server.
+## 'random': Randomly choose from all servers.
+## The response quality still depends on the server itself.
+
+# lb_strategy = 'wp2'
+
+## Set to `true` to constantly try to estimate the latency of all the resolvers
+## and adjust the load-balancing parameters accordingly, or to `false` to disable.
+## Default is `true` that makes 'p2' `lb_strategy` work well.
+
+# lb_estimator = true
+
+## Dynamically reduce query timeout as the number of concurrent connections
+## approaches max_clients to prevent overload. Value must be between 0.0 and 1.0.
+## 0.0 = no reduction, 1.0 = maximum reduction.
+## Uses a quartic curve to keep timeout high at low load and reduce sharply near limit.
+## For example, with timeout=5000ms, max_clients=250, and timeout_load_reduction=0.75:
+## - At 125 connections (50% load): timeout remains ~4765ms (95.3%)
+## - At 187 connections (75% load): timeout reduces to ~3826ms (76.5%)
+## - At 225 connections (90% load): timeout reduces to ~2539ms (50.8%)
+## - At 250 connections (100% load): timeout reduces to ~1250ms (25%)
+## This helps maintain responsiveness under high load by failing fast.
+
+# timeout_load_reduction = 0.75
+
+## Set to `true` to enable hot reloading of configuration files (like allowed-names.txt,
+## blocked-names.txt, etc.) when they are modified. This can increase CPU and memory usage.
+## Default is `false` (hot reloading is disabled).
+
+# enable_hot_reload = false
+
+
+###############################################################################
+#                                Logging                                      #
+###############################################################################
+
+## Log level (0-6, default: 2 - 0 is very verbose, 6 only contains fatal errors)
+log_level = 2
+log_file = '/var/log/dnscrypt-proxy/dnscrypt-proxy.log'
+
+## When using a log file, only keep logs from the most recent launch.
+# log_file_latest = true
+
+## Use the system logger (syslog on Unix, Event Log on Windows)
+use_syslog = true
+
+## Automatic log files rotation
+log_files_max_size = 10 # MB
+log_files_max_age = 7   # days
+log_files_max_backups = 1
+
+###############################################################################
+#                           Certificate Management                            #
+###############################################################################
+
+## The maximum concurrency to reload certificates from the resolvers.
+## Default is 10.
+# cert_refresh_concurrency = 10
+
+## Delay, in minutes, after which certificates are reloaded
+cert_refresh_delay = 240
+
+
+## Initially don't check DNSCrypt server certificates for expiration, and
+## only start checking them after a first successful connection to a resolver.
+## This can be useful on routers with no battery-backed clock.
+# cert_ignore_timestamp = false
+
+## DNSCrypt: Create a new, unique key for every single DNS query
+## This may improve privacy but can also have a significant impact on CPU usage
+## Only enable if you don't have a lot of network load
+# dnscrypt_ephemeral_keys = false
+
+## DoH: Disable TLS session tickets - increases privacy but also latency
+# tls_disable_session_tickets = false
+
+
+## DoH: Use TLS 1.2 and specific cipher suite instead of the server preference
+## 49199 = TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+## 49195 = TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+## 52392 = TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+## 52393 = TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+##
+## On non-Intel CPUs such as MIPS routers and ARM systems (Android, Raspberry Pi...),
+## uncommenting the following line may improve performance.
+## This may also help on Intel CPUs running 32-bit operating systems.
+## However, this can cause issues fetching sources or connecting to some HTTP servers,
+## and should not be set on regular CPUs.
+##
+## Keep tls_cipher_suite undefined to let the app automatically choose secure parameters.
+# tls_cipher_suite = [52392, 49199]
+
+## Log TLS key material to a file, for debugging purposes only.
+## This file will contain the TLS master key, which can be used to decrypt
+## all TLS traffic to/from DoH servers.
+## Never ever enable except for debugging purposes with a tool such as mitmproxy.
+# tls_key_log_file = '/var/log/dnscrypt-proxy/keylog.txt'
+
+###############################################################################
+#                            Startup & Network                                #
+###############################################################################
+
+bootstrap_resolvers = ['9.9.9.11:53', '8.8.8.8:53']
+ignore_system_dns = true
+netprobe_timeout = 60
+netprobe_address = '9.9.9.9:53'
+
+###############################################################################
+#                                 Filters                                     #
+###############################################################################
+
+## Note: if you are using dnsmasq, disable the `dnssec` option in dnsmasq if you
+## configure dnscrypt-proxy to do any kind of filtering (including the filters
+## below and blocklists).
+## You can still choose resolvers that do DNSSEC validation.
+
+
+## Immediately respond to IPv6-related queries with an empty response
+## This makes things faster when there is no IPv6 connectivity, but can
+## also cause reliability issues with some stub resolvers.
+block_ipv6 = true
+
+
+## Immediately respond to A and AAAA queries for host names without a domain name
+## This also prevents "dotless domain names" from being resolved upstream.
+block_unqualified = true
+
+## Immediately respond to queries for local zones instead of leaking them to
+## upstream resolvers (always causing errors or timeouts).
+block_undelegated = true
+
+
+## TTL for synthetic responses sent when a request has been blocked (due to
+## IPv6 or blocklists).
+reject_ttl = 10
+
+###############################################################################
+#                                DNS Cache                                    #
+###############################################################################
+
+cache = true
+
+cache_size = 4096       ## Cache size
+cache_min_ttl = 2400    ## Minimum TTL for cached entries
+cache_max_ttl = 86400   ## Maximum TTL for cached entries
+cache_neg_min_ttl = 60  ## Minimum TTL for negatively cached entries
+cache_neg_max_ttl = 600 ## Maximum TTL for negatively cached entries
+
+###############################################################################
+#                              Query logging                                  #
+###############################################################################
+
+[query_log]
+# file = '/var/log/dnscrypt-proxy/query.log'
+format = 'tsv'
+
+###############################################################################
+#                        Suspicious queries logging                           #
+###############################################################################
+
+[nx_log]
+# file = '/var/log/dnscrypt-proxy/nx.log'
+format = 'tsv'
+
+###############################################################################
+#                                Servers                                      #
+###############################################################################
+
+[sources]
+
+[sources.public-resolvers]
+urls = [
+  'https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md',
+  'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md',
+]
+cache_file = '/var/cache/dnscrypt-proxy/public-resolvers.md'
+minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+refresh_delay = 73
+prefix = ''
+
+### Anonymized DNS relays
+
+[sources.relays]
+urls = [
+  'https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/relays.md',
+  'https://download.dnscrypt.info/resolvers-list/v3/relays.md',
+]
+cache_file = '/var/cache/dnscrypt-proxy/relays.md'
+minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+refresh_delay = 73
+prefix = ''
+
+### ODoH (Oblivious DoH) servers and relays
+
+# [sources.odoh-servers]
+#   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/odoh-servers.md', 'https://download.dnscrypt.info/resolvers-list/v3/odoh-servers.md']
+#   cache_file = '/var/cache/dnscrypt-proxy/odoh-servers.md'
+#   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+#   refresh_delay = 73
+#   prefix = ''
+# [sources.odoh-relays]
+#   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/odoh-relays.md', 'https://download.dnscrypt.info/resolvers-list/v3/odoh-relays.md']
+#   cache_file = '/var/cache/dnscrypt-proxy/odoh-relays.md'
+#   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+#   refresh_delay = 73
+#   prefix = ''
+
+### Quad9
+
+[sources.quad9-resolvers]
+  urls = ['https://quad9.net/dnscrypt/quad9-resolvers.md']
+  minisign_key = 'RWQBphd2+f6eiAqBsvDZEBXBGHQBJfeG6G+wJPPKxCZMoEQYpmoysKUN'
+  cache_file = '/var/cache/dnscrypt-proxy/quad9-resolvers.md'
+  prefix = 'quad9-'
+
+### Another example source, with resolvers censoring some websites not appropriate for children
+### This is a subset of the `public-resolvers` list, so enabling both is useless.
+
+# [sources.parental-control]
+#   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/parental-control.md', 'https://download.dnscrypt.info/resolvers-list/v3/parental-control.md']
+#   cache_file = '/var/cache/dnscrypt-proxy/parental-control.md'
+#   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+
+### dnscry.pt servers - See https://www.dnscry.pt
+
+#  [sources.dnscry-pt-resolvers]
+#    urls = ["https://www.dnscry.pt/resolvers.md"]
+#    minisign_key = "RWQM31Nwkqh01x88SvrBL8djp1NH56Rb4mKLHz16K7qsXgEomnDv6ziQ"
+#    cache_file = "/var/cache/dnscrypt-proxy/dnscry.pt-resolvers.md"
+#    refresh_delay = 73
+#    prefix = "dnscry.pt-"
+
+
+###############################################################################
+#                        Servers with known bugs                              #
+###############################################################################
+
+[broken_implementations]
+
+## Cisco servers currently cannot handle queries larger than 1472 bytes, and don't
+## truncate responses larger than questions as expected by the DNSCrypt protocol.
+## This prevents large responses from being received over UDP and over relays.
+##
+## Older versions of the `dnsdist` server software had a bug with queries larger
+## than 1500 bytes. This is fixed since `dnsdist` version 1.5.0, but
+## some server may still run an outdated version.
+##
+## The list below enables workarounds to make non-relayed usage more reliable
+## until the servers are fixed.
+
+fragments_blocked = [
+  'cisco',
+  'cisco-ipv6',
+  'cisco-familyshield',
+  'cisco-familyshield-ipv6',
+  'cisco-sandbox',
+  'cleanbrowsing-adult',
+  'cleanbrowsing-adult-ipv6',
+  'cleanbrowsing-family',
+  'cleanbrowsing-family-ipv6',
+  'cleanbrowsing-security',
+  'cleanbrowsing-security-ipv6',
+]
+
+###############################################################################
+#                          Anonymized DNS                                     #
+###############################################################################
+
+[anonymized_dns]
+# routes = [
+#     { server_name = 'quad9-dnscrypt-ip4-filter-pri', via = ["*"]},
+#     # { server_name = 'ibksturm', via = ["*"]},
+# ]
+
+# skip_incompatible = true
+
+
+## If public server certificates for a non-conformant server cannot be
+## retrieved via a relay, try getting them directly. Actual queries
+## will then always go through relays.
+
+# direct_cert_fallback = false
+
+
+###############################################################################
+#                           IP Encryption                                     #
+###############################################################################
+
+[ip_encryption]
+
+## Encrypt client IP addresses in plugin logs using IPCrypt
+## This provides privacy for client IP addresses while maintaining
+## the ability to distinguish between different clients in logs
+
+## Encryption algorithm (default: "none")
+## - "none": No encryption (default)
+## - "ipcrypt-deterministic": Deterministic encryption (same IP always encrypts to same value) - requires 16-byte key
+## - "ipcrypt-nd": Non-deterministic encryption with 8-byte tweak - requires 16-byte key
+## - "ipcrypt-ndx": Non-deterministic encryption with 16-byte tweak (extended) - requires 32-byte key
+## - "ipcrypt-pfx": Prefix-preserving encryption (preserves network prefix relationships) - requires 32-byte key
+
+algorithm = "none"
+
+## Encryption key in hexadecimal format (required if algorithm is not "none")
+## Key size depends on algorithm:
+## - ipcrypt-deterministic: 32 hex chars (16 bytes) - Generate with: openssl rand -hex 16
+## - ipcrypt-nd: 32 hex chars (16 bytes) - Generate with: openssl rand -hex 16
+## - ipcrypt-ndx: 64 hex chars (32 bytes) - Generate with: openssl rand -hex 32
+## Example for deterministic/nd: key = "1234567890abcdef1234567890abcdef"
+## Example for ndx: key = "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+## IMPORTANT: Keep this key secret
+
+key = ""
+
+
+###############################################################################
+#                            Monitoring UI                                    #
+###############################################################################
+
+[monitoring_ui]
+
+enabled = false
+listen_address = "127.0.0.1:8080"
+username = "admin"
+password = "changeme"
+tls_certificate = ""
+tls_key = ""
+enable_query_log = true
+
+## Privacy level for the monitoring UI
+## 0: show all details including client IPs
+## 1: anonymize client IPs (default)
+## 2: aggregate data only (no individual queries or domains shown)
+privacy_level = 1

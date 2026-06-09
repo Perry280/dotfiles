@@ -12,9 +12,9 @@ function M.setup(colorscheme)
             border_size = 2,
 
             col = {
-                active_border = c.leaf,
+                active_border = c.foam,
                 inactive_border = c.base,
-                nogroup_border_active = c.leaf,
+                nogroup_border_active = c.foam,
                 nogroup_border = c.base,
             },
 

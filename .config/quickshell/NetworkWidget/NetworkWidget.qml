@@ -13,7 +13,7 @@ Rectangle {
 
     implicitHeight: 20
     implicitWidth: 20
-    color: RosePine.overlay
+    color: Style.colors.bgWidget
 
     radius: 5
 
@@ -91,55 +91,24 @@ Rectangle {
     state: "NORMAL"
 
     states: [
-        State {
-            name: "NORMAL"
-            PropertyChanges { target: net; color: RosePine.overlay }
-        },
-        State {
-            name: "HOVERED"
-            PropertyChanges { target: net; color: RosePine.highlight_med }
-        },
-        State {
-            name: "CLICKED"
-            PropertyChanges { target: net; color: RosePine.highlight_high }
-        },
+        State { name: "NORMAL";  PropertyChanges { target: net; color: Style.colors.bgWidget } },
+        State { name: "HOVERED"; PropertyChanges { target: net; color: Style.colors.bgHL1 } },
+        State { name: "CLICKED"; PropertyChanges { target: net; color: Style.colors.bgHL2 } },
     ]
 
     transitions: [
-        Transition {
-            from: "NORMAL"
-            to: "HOVERED"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
-        },
-        Transition {
-            from: "HOVERED"
-            to: "NORMAL"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 }
-        },
-        Transition {
-            from: "HOVERED"
-            to: "CLICKED"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
-        },
-        Transition {
-            from: "CLICKED"
-            to: "HOVERED"
-            ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 }
-        }
+        Transition { from: "NORMAL"; to: "HOVERED"; ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 } },
+        Transition { from: "HOVERED"; to: "NORMAL"; ColorAnimation { easing.type: Easing.InOutQuad; duration: 100 } },
+        Transition { from: "HOVERED"; to: "CLICKED"; ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 } },
+        Transition { from: "CLICKED"; to: "HOVERED"; ColorAnimation { easing.type: Easing.InOutQuad; duration: 50 } }
     ]
 
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
-        onEntered: {
-            parent.state = "HOVERED"
-        }
-        onExited: {
-            parent.state = "NORMAL"
-        }
-        onPressed: {
-            parent.state = "CLICKED"
-        }
+        onEntered: parent.state = "HOVERED"
+        onExited: parent.state = "NORMAL"
+        onPressed: parent.state = "CLICKED"
         onReleased: {
             parent.state = containsMouse ? "HOVERED" : "NORMAL"
             Quickshell.execDetached(["nm-connection-editor"])

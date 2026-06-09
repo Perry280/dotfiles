@@ -1,0 +1,36 @@
+UNIT FILE                         STATE   PRESET
+proc-sys-fs-binfmt_misc.mount     enabled disabled
+ananicy-cpp.service               enabled disabled
+apparmor.service                  enabled disabled
+auditd.service                    enabled disabled
+autovt@tty1.service               enabled disabled
+autovt@tty3.service               enabled disabled
+dbus-broker.service               enabled disabled
+dnscrypt-proxy.service            enabled disabled
+firewalld.service                 enabled disabled
+getty@.service                    enabled enabled
+keyd.service                      enabled disabled
+NetworkManager-dispatcher.service enabled disabled
+NetworkManager.service            enabled disabled
+nsd.service                       enabled disabled
+nvidia-resume.service             enabled disabled
+nvidia-suspend.service            enabled disabled
+pci-latency.service               enabled disabled
+rtkit-daemon.service              enabled disabled
+sddm.service                      enabled disabled
+systemd-timesyncd.service         enabled enabled
+thermald.service                  enabled disabled
+unbound.service                   enabled disabled
+upower.service                    enabled disabled
+wpa_supplicant.service            enabled disabled
+docker.socket                     enabled disabled
+systemd-userdbd.socket            enabled enabled
+man-db.timer                      enabled disabled
+paccache.timer                    enabled disabled
+pacman-filesdb-refresh.timer      enabled disabled
+reflector.timer                   enabled disabled
+snapper-cleanup.timer             enabled disabled
+snapper-timeline.timer            enabled disabled
+unbound-roothints.timer           enabled disabled
+
+33 unit files listed.

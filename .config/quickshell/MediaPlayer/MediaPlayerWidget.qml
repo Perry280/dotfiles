@@ -11,7 +11,7 @@ import ".."
 Rectangle {
     id: mp
     visible: MediaPlayer.anyPlayers
-    implicitHeight: 24
+    implicitHeight: Style.widgetHeight
     implicitWidth: items.spacing * 5 + iconItem.width + artistItem.width + separator.width + trackItem.width
     radius: 5
 
@@ -36,8 +36,8 @@ Rectangle {
         id: items
         Item {
             id: iconItem
-            Layout.preferredHeight: 24
-            Layout.preferredWidth: 24
+            Layout.preferredHeight: Style.widgetHeight
+            Layout.preferredWidth: Style.widgetHeight
             Layout.alignment: Qt.AlignVCenter
 
             IconImage {
@@ -56,7 +56,7 @@ Rectangle {
                 layer.enabled: true
                 layer.effect: MultiEffect {
                     colorization: 1.0
-                    colorizationColor: RosePine.overlay
+                    colorizationColor: Style.colors.fgAlt
                 }
             }
 
@@ -76,7 +76,7 @@ Rectangle {
                 layer.enabled: true
                 layer.effect: MultiEffect {
                     colorization: 1.0
-                    colorizationColor: RosePine.overlay
+                    colorizationColor: Style.colors.fgAlt
                 }
             }
 
@@ -92,7 +92,7 @@ Rectangle {
 
         Item {
             id: artistItem
-            Layout.preferredHeight: 24
+            Layout.preferredHeight: Style.widgetHeight
             Layout.preferredWidth: artist.width
             Layout.alignment: Qt.AlignVCenter
 
@@ -100,9 +100,9 @@ Rectangle {
                 id: artist
                 anchors.centerIn: parent
 
-                color: RosePine.overlay
+                color: Style.colors.fgAlt
                 font {
-                    family: "JetBrainsMonoNL Nerd Font Propo"
+                    family: Style.fontfamily
                     pixelSize: 12
                 }
 
@@ -119,7 +119,7 @@ Rectangle {
 
         Item {
             id: trackItem
-            Layout.preferredHeight: 24
+            Layout.preferredHeight: Style.widgetHeight
             Layout.preferredWidth: track.width
             Layout.alignment: Qt.AlignVCenter
 
@@ -127,9 +127,9 @@ Rectangle {
                 id: track
                 anchors.centerIn: parent
 
-                color: RosePine.overlay
+                color: Style.colors.fgAlt
                 font {
-                    family: "JetBrainsMonoNL Nerd Font Propo"
+                    family: Style.fontfamily
                     pixelSize: 12
                 }
 

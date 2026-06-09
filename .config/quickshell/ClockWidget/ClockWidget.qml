@@ -5,12 +5,11 @@ import ".."
 
 Rectangle {
     id: time_root
-    readonly property color fg: RosePine.rose
 
     antialiasing: true
-    color: RosePine.overlay
-    height: 24
-    width: 70
+    color: Style.colors.bgWidget
+    height: Style.widgetHeight
+    width: 60
     radius: 5
 
     Item {
@@ -22,29 +21,51 @@ Rectangle {
         Text {
             id: time_text
             anchors.centerIn: parent
-            color: fg
+            color: RosePine.rose
 
             text: Time.time
 
             font {
-                family: "JetBrainsMonoNL Nerd Font Propo"
-                pixelSize: 15
+                family: Style.fontfamily
+                pixelSize: Style.fontsize
             }
 
             renderType: Text.QtRendering
         }
     }
 
-    MouseArea {
-        id: triggerArea
-        anchors.fill: parent
-        onClicked: {
-            calendar.active = !calendar.active
+    // MouseArea {
+    //     id: triggerArea
+    //     anchors.fill: parent
+    //     onClicked: {
+    //         calendar.active = !calendar.active
+    //     }
+    // }
+    Timer {
+        id: t
+        interval: 200
+        running: false
+        repeat: true
+        onTriggered: calendar.active = false
+    }
+
+    HoverHandler {
+        id: hover
+        parent: parent
+        onHoveredChanged: {
+            if (hovered) {
+                calendar.active = true
+                t.stop()
+            }
+            else {
+                t.restart()
+            }
         }
     }
 
     CalendarWidget {
         id: calendar
         active: false
+        timer: t
     }
 }

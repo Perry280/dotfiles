@@ -23,7 +23,7 @@ Scope {
             required property var modelData
             screen: modelData
 
-            implicitHeight: 34
+            implicitHeight: Style.barHeight
             anchors {
                 top: true
                 left: true
@@ -39,7 +39,7 @@ Scope {
 
                 anchors.fill: parent
 
-                color: RosePine.base
+                color: Style.colors.bgMain
 
 
                 RowLayout {
@@ -50,7 +50,6 @@ Scope {
                     }
 
                     SystemInfoWidget {}
-
                     WorkspaceWidget {}
                 }
 
@@ -73,7 +72,7 @@ Scope {
                     Rectangle {
                         Layout.alignment: Qt.AlignCenter
 
-                        implicitHeight: 24
+                        implicitHeight: Style.widgetHeight
                         implicitWidth: nw.width + vol.width + session.width
                         radius: 5
                         color: RosePine.overlay

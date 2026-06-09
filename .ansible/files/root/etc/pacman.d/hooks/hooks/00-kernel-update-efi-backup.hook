@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Path
+Target = usr/lib/modules/*/vmlinuz
+
+[Action]
+Description = Backing up pre /efi ...
+When = PreTransaction
+Exec = /usr/bin/bash -c 'cp -r /efi "/.efibackup/efi-$(date +%Y_%m_%d-%H_%M_%S)/"'

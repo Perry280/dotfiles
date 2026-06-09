@@ -7,7 +7,7 @@ Rectangle {
     id: sys_info
 
     color: RosePine.love
-    implicitHeight: 24
+    implicitHeight: Style.widgetHeight
     implicitWidth: 250
     radius: 5
 
@@ -17,7 +17,7 @@ Rectangle {
         spacing: 10
 
         Item {
-            Layout.preferredHeight: 24
+            Layout.preferredHeight: Style.widgetHeight
             Layout.preferredWidth:  20
             Layout.alignment: Qt.AlignCenter
 
@@ -35,7 +35,7 @@ Rectangle {
         }
 
         Item {
-            Layout.preferredHeight: 24
+            Layout.preferredHeight: Style.widgetHeight
             Layout.preferredWidth:  10
             Layout.alignment: Qt.AlignCenter
 
@@ -53,7 +53,7 @@ Rectangle {
         }
 
         Item {
-            Layout.preferredHeight: 24
+            Layout.preferredHeight: Style.widgetHeight
             Layout.preferredWidth:  40
             Layout.alignment: Qt.AlignCenter
 

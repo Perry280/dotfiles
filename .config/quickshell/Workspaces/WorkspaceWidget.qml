@@ -12,10 +12,10 @@ Rectangle {
     readonly property int smallSize: 8
     readonly property int bigSize: 12
 
-    implicitHeight: 24
+    implicitHeight: Style.widgetHeight
     implicitWidth: (space + smallSize) * workspaces + space
 
-    color: RosePine.overlay
+    color: Style.colors.bgWidget
     radius: 5
 
     RowLayout {

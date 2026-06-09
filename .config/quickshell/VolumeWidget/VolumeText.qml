@@ -10,8 +10,8 @@ Item {
 
         color: fg
         font {
-            family: "JetBrainsMonoNL Nerd Font Propo"
-            pixelSize: 15
+            family: Style.fontfamily
+            pixelSize: Style.fontsize
             // bold: true
             // hintingPreference: Font.PreferVerticalHinting
         }

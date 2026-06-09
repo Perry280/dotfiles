@@ -48,10 +48,10 @@ Scope {
 			Rectangle {
 				anchors.fill: parent
 				radius: 5
-				color: RosePine.base
+				color: Style.colors.bgMain
 
                 border {
-                    color: RosePine._nc
+                    color: Style.colors.bgAlt
                     width: 2
                 }
 
@@ -78,7 +78,7 @@ Scope {
 
 						implicitHeight: 10
 						radius: 20
-						color: RosePine.overlay
+						color: Style.colors.bgWidget
 
 						Rectangle {
 							anchors {

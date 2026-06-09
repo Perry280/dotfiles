@@ -8,5 +8,5 @@ Rectangle {
 
     radius: 1
 
-    color: RosePine._nc
+    color: Style.colors.bgAlt
 }

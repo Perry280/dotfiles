@@ -10,11 +10,13 @@ import ".."
 RowLayout {
     spacing: 5
 
-    readonly property color fg: RosePine.overlay // RosePine.iris
+    readonly property color fg: Style.colors.fgAlt // RosePine.iris
+    readonly property int widgetHeight: Style.widgetHeight // RosePine.love
 
     Item {
-        Layout.preferredHeight: 24
+        Layout.preferredHeight: widgetHeight
         Layout.preferredWidth: 20
+        Layout.alignment: Qt.AlignCenter
 
         IconImage {
             anchors.centerIn: parent
@@ -31,8 +33,9 @@ RowLayout {
     }
 
     Item {
-        Layout.preferredHeight: 24
+        Layout.preferredHeight: widgetHeight
         Layout.preferredWidth: text.width
+        Layout.alignment: Qt.AlignCenter
 
         Text {
             id: text
@@ -40,8 +43,8 @@ RowLayout {
 
             color: fg
             font {
-                family: "JetBrainsMonoNL Nerd Font Propo"
-                pixelSize: 15
+                family: Style.fontfamily
+                pixelSize: Style.fontsize
                 // bold: true
                 // hintingPreference: Font.PreferVerticalHinting
             }

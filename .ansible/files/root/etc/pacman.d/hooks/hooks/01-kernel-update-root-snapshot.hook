@@ -1,0 +1,12 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Path
+Target = usr/lib/modules/*/vmlinuz
+
+[Action]
+Depends = snapper
+Description = Creating root snapshot ...
+When = PreTransaction
+Exec = /usr/bin/bash -c 'snapper -c root create -c timeline --description "kernel_update-$(date +%Y_%m_%d-%H:%M:%S)"'

@@ -224,6 +224,16 @@ files:
     group: root
     mode: '755'
 
+  - path: /etc/conf.d/pacman-contrib
+    owner: root
+    group: root
+    mode: '644'
+
+  - path: /etc/conf.d/wireless-regdom
+    owner: root
+    group: root
+    mode: '644'
+
   # - path: 
   #   owner: root
   #   group: root
