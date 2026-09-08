@@ -59,7 +59,6 @@ inetutils
 intel-ucode
 iptables
 iucode-tool
-jdk-openjdk
 keyd
 kitty
 kvantum
@@ -118,6 +117,7 @@ qt6ct
 quickshell
 reflector
 ripgrep
+rofi
 rose-pine-cursor
 ruff
 rust
@@ -138,7 +138,6 @@ sudo
 swaync
 syncthing
 texinfo
-thermald
 tk
 tree
 tree-sitter-cli

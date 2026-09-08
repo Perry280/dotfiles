@@ -39,11 +39,11 @@ Scope {
 			margins.bottom: screen.height / 10
 			exclusiveZone: 0
 
-			implicitWidth: 200
+			implicitWidth: 300
 			implicitHeight: 30
 			color: "transparent"
 
-            focusable: true
+            focusable: false
 
 			Rectangle {
 				anchors.fill: parent

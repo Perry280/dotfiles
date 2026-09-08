@@ -19,7 +19,6 @@ pci-latency.service               enabled disabled
 rtkit-daemon.service              enabled disabled
 sddm.service                      enabled disabled
 systemd-timesyncd.service         enabled enabled
-thermald.service                  enabled disabled
 unbound.service                   enabled disabled
 upower.service                    enabled disabled
 wpa_supplicant.service            enabled disabled
@@ -33,4 +32,4 @@ snapper-cleanup.timer             enabled disabled
 snapper-timeline.timer            enabled disabled
 unbound-roothints.timer           enabled disabled
 
-33 unit files listed.
+32 unit files listed.

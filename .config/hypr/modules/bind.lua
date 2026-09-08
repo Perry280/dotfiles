@@ -15,9 +15,9 @@ function M.setup(variables)
     bind('SUPER + SHIFT + F', dsp.window.fullscreen({ mode = 'maximized', action = 'toggle' }))
     bind('SUPER + ALT + F', dsp.window.fullscreen({ mode = 'fullscreen', action = 'toggle' }))
 
-    bind('SUPER + P', dsp.window.pseudo())            -- dwindle
-    bind('SUPER + Tab', dsp.layout('togglesplit'))    -- dwindle
-    bind('SUPER + ALT+ Tab', dsp.layout('swapsplit')) -- dwindle
+    bind('SUPER + P', dsp.window.pseudo())             -- dwindle
+    bind('SUPER + Tab', dsp.layout('togglesplit'))     -- dwindle
+    bind('SUPER + ALT + Tab', dsp.layout('swapsplit')) -- dwindle
 
     bind('SUPER + C', dsp.window.close())
     bind('SUPER + SHIFT + C', dsp.window.kill())
@@ -99,8 +99,7 @@ function M.setup(variables)
 
     -- bind('SUPER + Q', function()
     --     hl.notification.create({
-    --         text = tostring(hl.get_window("activewindow").size.x) ..
-    --             " " .. tostring(hl.get_window("activewindow").size.y),
+    --         text = " ",
     --         duration = 2000
     --     })
     -- end)
